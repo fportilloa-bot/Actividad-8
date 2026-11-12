@@ -1,0 +1,18 @@
+{
+  "name": "Pokédex Móvil",
+  "short_name": "Pokédex",
+  "description": "Pokédex con favoritos, equipo, comparador y minijuego de adivinar Pokémon.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#d62f2f",
+  "theme_color": "#d62f2f",
+  "lang": "es",
+  "categories": ["games", "entertainment"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
