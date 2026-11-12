@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#d62f2f">
+  <title>Pokédex Móvil</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Pantalla de bienvenida -->
+  <div id="splash">
+    <div class="pokebola"></div>
+    <h1>Pokédex</h1>
+  </div>
+
+  <!-- Encabezado -->
+  <header class="top">
+    <div class="lens"></div>
+    <h1 id="titulo">Pokédex</h1>
+    <button id="btnTema" class="tema" aria-label="Cambiar tema">🌙</button>
+  </header>
+
+  <main>
+
+    <!-- Vista: Inicio y Favoritos (lista de Pokémon) -->
+    <div id="vLista">
+      <div id="controles">
+        <button id="dia" class="dia"></button>
+        <input id="busqueda" type="search" placeholder="Busca por nombre o número…" autocomplete="off" aria-label="Buscar">
+        <div class="selects">
+          <select id="gen" aria-label="Generación"></select>
+          <select id="orden" aria-label="Ordenar">
+            <option value="num">Orden: número</option>
+            <option value="nom">Orden: nombre A-Z</option>
+          </select>
+        </div>
+        <nav id="filtros" class="filtros"></nav>
+      </div>
+      <p id="mensaje" class="mensaje" aria-live="polite"></p>
+      <section id="lista" class="lista"></section>
+      <button id="btnMas" class="mas oculto">Cargar más</button>
+    </div>
+
+    <!-- Vista: Equipo -->
+    <section id="vEquipo" class="oculto">
+      <p class="mensaje">Abre un Pokémon y toca 👥 para agregarlo (máximo 6).</p>
+      <div id="slots" class="lista"></div>
+      <p id="tiposEquipo" class="mensaje"></p>
+    </section>
+
+    <!-- Vista: Juego -->
+    <section id="vJuego" class="oculto">
+      <h2 class="centro">¿Quién es ese Pokémon?</h2>
+      <p id="puntos" class="mensaje"></p>
+      <div class="juego-img">
+        <img id="jImg" class="silueta" alt="Silueta de un Pokémon">
+      </div>
+      <div id="opciones" class="opciones"></div>
+      <button id="btnSig" class="mas oculto">Siguiente ➜</button>
+    </section>
+
+  </main>
+
+  <!-- Navegación inferior -->
+  <nav class="tabs">
+    <button data-vista="inicio" class="activo"><span>🏠</span>Inicio</button>
+    <button data-vista="favoritos"><span>❤️</span>Favoritos</button>
+    <button data-vista="equipo"><span>👥</span>Equipo</button>
+    <button data-vista="juego"><span>🎮</span>Juego</button>
+  </nav>
+
+  <!-- Ficha de detalle -->
+  <div id="detalle" class="detalle oculto" role="dialog" aria-modal="true" aria-label="Detalle del Pokémon">
+    <div id="ficha" class="ficha">
+      <button id="cerrar" class="cerrar" aria-label="Cerrar">✕</button>
+      <img id="dImg" alt="">
+      <h2 id="dNombre"></h2>
+
+      <div class="botones-ficha">
+        <button id="dFav" class="icono grande" aria-label="Favorito">🤍</button>
+        <button id="dShiny" class="icono grande" aria-label="Versión shiny">✨</button>
+        <button id="dSonido" class="icono grande" aria-label="Escuchar">🔊</button>
+        <button id="dEq" class="icono grande" aria-label="Agregar al equipo">👥</button>
+        <button id="dComp" class="icono grande" aria-label="Comparar">⚖️</button>
+      </div>
+
+      <div id="dTipos" class="tipos"></div>
+      <p id="dMedidas" class="medidas"></p>
+      <p id="dDesc" class="descripcion"></p>
+
+      <h3>Habilidades</h3>
+      <p id="dHab"></p>
+
+      <h3>Movimientos</h3>
+      <p id="dMov"></p>
+
+      <h3>Debilidades</h3>
+      <div id="dDeb"></div>
+
+      <h3>Estadísticas</h3>
+      <div id="dStats"></div>
+
+      <h3>Evolución</h3>
+      <div id="dEvo" class="evolucion"></div>
+    </div>
+  </div>
+
+  <!-- Barra del comparador -->
+  <div id="barraComparar" class="barra-comp oculto">
+    <span id="textoComp"></span>
+    <button id="btnVerComp">Ver comparación</button>
+    <button id="btnLimpiarComp">Limpiar</button>
+  </div>
+
+  <!-- Ventana del comparador -->
+  <div id="comparador" class="detalle oculto" role="dialog" aria-modal="true" aria-label="Comparación">
+    <div class="ficha ancha">
+      <button id="cerrarComp" class="cerrar" aria-label="Cerrar">✕</button>
+      <h2>Comparación</h2>
+      <div id="cContenido"></div>
+    </div>
+  </div>
+
+  <!-- Mensaje flotante -->
+  <div id="toast" class="toast"></div>
+
+  <script src="pokemon.js"></script>
+</body>
+</html>

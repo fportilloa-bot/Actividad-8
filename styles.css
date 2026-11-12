@@ -1,0 +1,247 @@
+/* ==========================================================
+   POKÉDEX MÓVIL - ESTILOS
+   ========================================================== */
+
+/* ---------- Variables de color (modo claro y oscuro) ---------- */
+:root{
+  --rojo:#d62f2f; --azul:#3b8fd9; --amarillo:#ffcb05; --tinta:#22252b;
+  --fondo:#f6f1e7; --carta:#ffffff; --texto:#22252b; --borde:#22252b; --suave:#666;
+}
+body.oscuro{
+  --fondo:#15171c; --carta:#23262e; --texto:#f1f1f1; --borde:#5b6070; --suave:#a5a9b5;
+}
+
+/* ---------- Base ---------- */
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:"Trebuchet MS",Verdana,sans-serif;
+  background:var(--fondo);color:var(--texto);
+  min-height:100vh;transition:background .3s,color .3s;
+}
+button,select{font-family:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--azul);outline-offset:2px}
+.oculto{display:none !important}
+.centro{text-align:center}
+main{padding:14px 14px 100px}
+
+/* ---------- Pantalla de bienvenida ---------- */
+#splash{
+  position:fixed;inset:0;background:var(--rojo);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+  z-index:50;transition:opacity .5s;
+}
+#splash h1{color:#fff;font-size:2rem}
+#splash.fuera{opacity:0;pointer-events:none}
+
+.pokebola{
+  width:56px;height:56px;border-radius:50%;border:4px solid var(--tinta);position:relative;
+  background:linear-gradient(#ff7a6e 0 46%,var(--tinta) 46% 54%,#fff 54% 100%);
+  animation:girar .9s linear infinite;
+}
+.pokebola::after{
+  content:"";position:absolute;top:50%;left:50%;width:16px;height:16px;margin:-8px 0 0 -8px;
+  border-radius:50%;background:#fff;border:3px solid var(--tinta);
+}
+@keyframes girar{to{transform:rotate(360deg)}}
+
+/* ---------- Encabezado ---------- */
+.top{
+  background:var(--rojo);border-bottom:6px solid var(--tinta);
+  padding:14px 16px;padding-top:calc(14px + env(safe-area-inset-top));
+  display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:5;
+}
+.lens{
+  width:38px;height:38px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#bfe3ff,var(--azul) 60%);
+  border:4px solid #fff;box-shadow:0 0 0 3px var(--tinta);
+}
+.top h1{color:#fff;font-size:1.5rem;letter-spacing:1px}
+.tema{
+  margin-left:auto;width:42px;height:42px;border-radius:50%;
+  border:3px solid var(--tinta);background:var(--amarillo);font-size:1.2rem;
+}
+
+/* ---------- Búsqueda, selectores y filtros ---------- */
+#busqueda{
+  width:100%;padding:12px;border:3px solid var(--borde);border-radius:10px;
+  font-size:1rem;background:var(--carta);color:var(--texto);
+}
+.selects{display:flex;gap:8px;margin-top:10px}
+.selects select{
+  flex:1;padding:10px;border:3px solid var(--borde);border-radius:10px;
+  background:var(--carta);min-width:0;
+}
+.filtros{display:flex;gap:8px;overflow-x:auto;padding:12px 0}
+.chip{
+  flex:none;padding:6px 14px;border:2px solid var(--borde);border-radius:20px;
+  background:var(--carta);font-size:.85rem;text-transform:capitalize;
+}
+.chip.activo{background:var(--c,var(--amarillo));color:#fff;border-color:var(--tinta);font-weight:bold}
+.chip:first-child.activo{color:var(--tinta)}
+
+.mensaje{margin:8px 0 14px;text-align:center;min-height:1.2em;color:var(--suave);font-size:.9rem}
+.reint{
+  padding:4px 12px;border:2px solid var(--borde);border-radius:8px;
+  background:var(--amarillo);color:var(--tinta);font-weight:bold;
+}
+
+/* ---------- Pokémon del día ---------- */
+.dia{
+  display:flex;align-items:center;gap:12px;width:100%;margin-bottom:12px;padding:8px 14px;
+  border:3px solid var(--tinta);border-radius:14px;
+  background:linear-gradient(90deg,var(--amarillo),#ffe680);color:var(--tinta);
+  text-align:left;text-transform:capitalize;
+}
+.dia img{width:64px;height:64px}
+
+/* ---------- Lista y tarjetas ---------- */
+.lista{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.tarjeta{
+  position:relative;background:var(--carta);
+  border:3px solid var(--c,var(--borde));border-top-width:10px;border-radius:14px;
+  padding:10px;text-align:center;cursor:pointer;animation:aparecer .35s both;
+}
+.tarjeta:active{transform:scale(.97)}
+.tarjeta img{width:96px;height:96px;image-rendering:pixelated}
+.tarjeta .num{font-size:.8rem;color:var(--suave)}
+.tarjeta .nom{font-weight:bold;text-transform:capitalize}
+.tarjeta .fav{position:absolute;top:2px;right:4px}
+@keyframes aparecer{from{opacity:0;transform:translateY(12px)}}
+
+/* Esqueleto de carga */
+.esqueleto{
+  height:170px;border:0;border-radius:14px;opacity:.5;
+  background:linear-gradient(90deg,var(--carta) 25%,var(--borde) 50%,var(--carta) 75%);
+  background-size:200% 100%;animation:brillo 1.2s infinite;
+}
+@keyframes brillo{to{background-position:-200% 0}}
+
+/* Espacio vacío del equipo */
+.vacio{
+  border:3px dashed var(--borde);border-radius:14px;min-height:170px;
+  display:flex;align-items:center;justify-content:center;color:var(--suave);
+}
+
+/* ---------- Botones ---------- */
+.icono{
+  background:none;border:2px solid transparent;border-radius:50%;
+  width:32px;height:32px;font-size:1rem;
+}
+.icono.grande{width:44px;height:44px;font-size:1.3rem;border-color:var(--borde);background:var(--carta)}
+.icono.activo{background:var(--amarillo);border-color:var(--tinta)}
+.mas{
+  display:block;margin:18px auto 0;padding:12px 28px;border:3px solid var(--borde);
+  border-radius:12px;background:var(--amarillo);color:var(--tinta);font-weight:bold;font-size:1rem;
+}
+
+/* ---------- Etiquetas de tipo ---------- */
+.tipos,.fila-deb{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:6px 0;align-items:center}
+.tipo{
+  padding:3px 12px;border-radius:20px;color:#fff;font-size:.85rem;
+  text-transform:capitalize;border:2px solid var(--tinta);
+}
+
+/* ---------- Ventanas: ficha y comparador ---------- */
+.detalle{
+  position:fixed;inset:0;background:rgba(0,0,0,.65);
+  display:flex;align-items:center;justify-content:center;padding:16px;z-index:10;
+}
+.ficha{
+  background:var(--fondo);border:4px solid var(--borde);border-top:12px solid var(--c,var(--borde));
+  border-radius:18px;padding:18px;width:100%;max-width:380px;max-height:90vh;
+  overflow:auto;text-align:center;position:relative;animation:subir .3s;
+}
+.ficha.ancha{max-width:440px}
+@keyframes subir{from{transform:translateY(40px);opacity:0}}
+.ficha img#dImg{width:180px;height:180px}
+.ficha h2{text-transform:capitalize}
+.ficha h3{margin:14px 0 6px}
+.cerrar{
+  position:absolute;top:8px;right:8px;width:36px;height:36px;border-radius:50%;
+  border:3px solid var(--tinta);background:var(--rojo);color:#fff;font-size:1rem;
+}
+.botones-ficha{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:8px 0}
+.medidas{margin:6px 0 8px;font-size:.95rem}
+.descripcion{font-size:.9rem;font-style:italic;color:var(--suave)}
+#dHab,#dMov{text-transform:capitalize;font-size:.9rem}
+
+/* ---------- Estadísticas ---------- */
+.stat{display:flex;align-items:center;gap:8px;margin:5px 0;font-size:.85rem;text-align:left}
+.stat span:first-child{width:92px}
+.barra{flex:1;height:12px;background:#ccc;border-radius:6px;overflow:hidden;border:2px solid var(--borde)}
+.barra i{display:block;height:100%;width:var(--w);animation:llenar .8s}
+@keyframes llenar{from{width:0}}
+.stat b{width:30px;text-align:right}
+
+/* ---------- Evolución ---------- */
+.evolucion{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
+.evo-grupo{display:flex;flex-wrap:wrap;gap:4px;justify-content:center}
+.evo{
+  background:var(--carta);border:2px solid var(--borde);border-radius:12px;
+  padding:4px;font-size:.75rem;text-transform:capitalize;
+}
+.evo img{width:64px;height:64px;display:block}
+
+/* ---------- Comparador ---------- */
+.barra-comp{
+  position:fixed;left:0;right:0;bottom:calc(64px + env(safe-area-inset-bottom));
+  background:var(--tinta);color:#fff;padding:10px 12px;
+  display:flex;align-items:center;gap:8px;z-index:7;font-size:.85rem;
+}
+.barra-comp span{flex:1;text-transform:capitalize}
+.barra-comp button{
+  padding:8px 10px;border:2px solid #fff;border-radius:8px;
+  background:var(--amarillo);color:var(--tinta);font-weight:bold;
+}
+.barra-comp button:disabled{opacity:.4}
+#btnLimpiarComp{background:transparent;color:#fff}
+
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+.cab{border:3px solid;border-radius:12px;padding:6px;background:var(--carta);text-transform:capitalize;font-weight:bold}
+.cab img{width:110px;height:110px}
+.cmp-stat{margin:8px 0;text-align:left}
+.cmp-stat .etq{font-size:.85rem;font-weight:bold}
+.cmp-fila{display:flex;align-items:center;gap:8px;margin:2px 0}
+.cmp-fila b{width:56px;text-align:right;font-size:.85rem;font-weight:normal}
+.cmp-fila b.gana{font-weight:bold}
+
+/* ---------- Juego ---------- */
+.juego-img{text-align:center;margin:6px 0 14px}
+#jImg{width:220px;height:220px;transition:filter .5s}
+#jImg.silueta{filter:brightness(0)}
+.opciones{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.op{
+  padding:14px 6px;border:3px solid var(--borde);border-radius:12px;
+  background:var(--carta);font-size:1rem;text-transform:capitalize;
+}
+.op.ok{background:#78c850;color:#fff}
+.op.mal{background:var(--rojo);color:#fff}
+
+/* ---------- Navegación inferior ---------- */
+.tabs{
+  position:fixed;left:0;right:0;bottom:0;display:flex;
+  background:var(--carta);border-top:4px solid var(--borde);
+  z-index:6;padding-bottom:env(safe-area-inset-bottom);
+}
+.tabs button{
+  flex:1;border:0;background:none;padding:8px 0;font-size:.75rem;
+  display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--suave);
+}
+.tabs button span{font-size:1.4rem}
+.tabs button.activo{color:var(--rojo);font-weight:bold}
+
+/* ---------- Mensaje flotante ---------- */
+.toast{
+  position:fixed;left:50%;bottom:90px;transform:translate(-50%,20px);
+  background:var(--tinta);color:#fff;padding:10px 18px;border-radius:20px;
+  opacity:0;pointer-events:none;transition:.3s;z-index:20;font-size:.9rem;
+}
+.toast.ver{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- Pantallas grandes y accesibilidad ---------- */
+@media (min-width:600px){
+  .lista{grid-template-columns:repeat(4,1fr)}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none !important;transition:none !important}
+}
